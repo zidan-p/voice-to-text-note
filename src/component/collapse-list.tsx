@@ -1,11 +1,10 @@
 import { cn } from "../lib/cn";
-import TrashIcon from "./../assets/trash.svg?react";
-import PencilIcon from "../assets/pencil.svg?react";
 import ChevronLeft from "../assets/chevron-left.svg?react"
-import { useRef, useState } from "react";
+import { ReactNode, useRef, useState } from "react";
 
 interface CollapseListProps {
   className?: string;
+  buttonList?: ReactNode;
 }
 
 
@@ -25,13 +24,8 @@ export function CollapseList(props: CollapseListProps){
             #jkjksda-asdjkl-qweikasd-qwd
           </div>
         </div>
-        <div className="group-hover:flex hidden gap-1">
-          <button className="p-2 bg-amber-300 rounded text-amber-800 active:text-amber-700 active:bg-amber-200">
-            <PencilIcon className="w-5" />
-          </button>
-          <button className="p-2 bg-red-300 rounded text-red-800 active:text-red-700 active:bg-red-200">
-            <TrashIcon className="w-5" />
-          </button>
+        <div className="group-hover:flex flex gap-1">
+          <div className="flex gap-1">{props.buttonList}</div>
           <button className="p-2 rounded active:bg-slate-100" onClick={() => setIsCollapse(!isCollapse)}>
             <ChevronLeft className={cn("w-5 transition", !isCollapse ? "-rotate-90" : "")} />
           </button>

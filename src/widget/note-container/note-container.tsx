@@ -2,7 +2,7 @@ import { NoteContainerState } from "./note-container-state";
 import ChevronLeft from "../../assets/chevron-left.svg?react"
 import { ReactNode, useRef, useState } from "react";
 import { cn } from "../../lib/cn";
-import { RemoveNoteButton } from "../../features/note/remove";
+import { RemoveConfirm, RemoveNoteButton } from "../../features/note/remove";
 import { UpdateConfirmAction, UpdateNote, UpdateNoteButton } from "../../features/note/update";
 
 interface NoteContainerProps {
@@ -20,6 +20,9 @@ export function NoteContainer(props: NoteContainerProps){
   function ChangeContainerState(state: NoteContainerState){
     setContainerState(state);
   }
+
+
+  return <RemoveConfirm />
   
   if(containerState === NoteContainerState.EDIT) return( 
     <UpdateNote 

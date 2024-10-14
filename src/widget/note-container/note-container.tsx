@@ -17,14 +17,23 @@ export function NoteContainer(props: NoteContainerProps){
   const [isCollapse, setIsCollapse] = useState(true);
   const contentRef = useRef<HTMLDivElement | null>(null);
 
+  function ChangeContainerState(state: NoteContainerState){
+    setContainerState(state);
+  }
   
-  return <UpdateNote />
+  if(containerState === NoteContainerState.EDIT) return( 
+    <UpdateNote 
+      id="nganunganu"
+      onUpdate={() => setContainerState(NoteContainerState.SHOW)}  
+      onCancel={() => setContainerState(NoteContainerState.SHOW)}  
+    />
+  )
 
   return (
     <div className={cn(props.className, "hover:bg-slate-50 p-2 rounded group")}>
-      <UpdateConfirmAction />
+      {/* <UpdateConfirmAction /> */}
       
-      {/* <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center">
         <div className="">
           <div className="text-slate-600 text-sm">
             12 oktober 2024
@@ -36,13 +45,13 @@ export function NoteContainer(props: NoteContainerProps){
         <div className="group-hover:flex flex gap-1">
           <div className="flex gap-1">
             <RemoveNoteButton />
-            <UpdateNoteButton />
+            <UpdateNoteButton onClick={() => setContainerState(NoteContainerState.EDIT)}  />
           </div>
           <button className="p-2 rounded active:bg-slate-100" onClick={() => setIsCollapse(!isCollapse)}>
             <ChevronLeft className={cn("w-5 transition", !isCollapse ? "-rotate-90" : "")} />
           </button>
         </div>
-      </div> */}
+      </div>
 
     <div
       ref={contentRef}

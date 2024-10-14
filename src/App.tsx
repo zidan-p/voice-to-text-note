@@ -1,17 +1,9 @@
 import { CollapseList } from "./component/collapse-list"
 import { RemoveNoteButton } from "./features/note/remove"
 import { UpdateNoteButton } from "./features/note/update"
+import { NoteContainer } from "./widget/note-container/note-container"
 
 
-function EditableNoteList(){
-
-  return (
-    <>
-      <RemoveNoteButton />
-      <UpdateNoteButton />
-    </>
-  )
-}
 
 function App() {
 
@@ -22,11 +14,7 @@ function App() {
           Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sapiente, iste impedit expedita, magnam cupiditate assumenda magni sequi praesentium sunt aspernatur veniam aliquam distinctio, non neque temporibus tempora dolores esse. Voluptates.
 
           <section>
-            <ul>
-              <li>
-                <CollapseList className="mb-2" buttonList={<EditableNoteList />} />
-              </li>
-            </ul>
+            <NoteContainer />
           </section>
         </div>
       </div>

@@ -21,8 +21,14 @@ export function NoteContainer(props: NoteContainerProps){
     setContainerState(state);
   }
 
+  if(containerState === NoteContainerState.DELETE) return (
+    <RemoveConfirm 
+      id="nganunganu"
+      onRemove={() => setContainerState(NoteContainerState.SHOW)}
+      onCancel={() => setContainerState(NoteContainerState.SHOW)}
+    />
 
-  return <RemoveConfirm />
+  )
   
   if(containerState === NoteContainerState.EDIT) return( 
     <UpdateNote 
@@ -47,7 +53,7 @@ export function NoteContainer(props: NoteContainerProps){
         </div>
         <div className="group-hover:flex flex gap-1">
           <div className="flex gap-1">
-            <RemoveNoteButton />
+            <RemoveNoteButton onClick={() => setContainerState(NoteContainerState.DELETE)} />
             <UpdateNoteButton onClick={() => setContainerState(NoteContainerState.EDIT)}  />
           </div>
           <button className="p-2 rounded active:bg-slate-100" onClick={() => setIsCollapse(!isCollapse)}>

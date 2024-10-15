@@ -26,7 +26,7 @@ export function NoteList(props: NoteListProps){
             #jkjksda-asdjkl-qweikasd-qwd
           </div>
         </div>
-        <div className="group-hover:flex flex gap-1">
+        <div className="group-hover:flex hidden gap-1">
           <div className="flex gap-1">{props.buttonList}</div>
           <button className="p-2 rounded active:bg-slate-100" onClick={() => setIsCollapse(!isCollapse)}>
             <ChevronLeft className={cn("w-5 transition", !isCollapse ? "-rotate-90" : "")} />

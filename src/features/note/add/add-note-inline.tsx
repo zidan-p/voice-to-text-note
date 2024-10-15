@@ -10,6 +10,7 @@ export function AddNoteInline(){
 
   const [isAction, setIsAction] = useState(false);
 
+  
 
   if(!isAction) return (
     <AddNoteButton onClick={() => setIsAction(true)} />

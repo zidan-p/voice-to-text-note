@@ -15,8 +15,8 @@ export function UpdateConfirmAction (props: UpdateConfirmActionProps){
 
   return (
     <div className={cn("flex justify-between", props.className)}>
-      <OutlineButton variant="danger" onClick={props.onConFirmCancel} > Batal </OutlineButton>
-      <OutlineButton variant="primary" onClick={props.onConFirmUpdate} > Update </OutlineButton>
+      <OutlineButton className="px-3" variant="danger" onClick={props.onConFirmCancel} > Batal </OutlineButton>
+      <OutlineButton className="px-3" variant="primary" onClick={props.onConFirmUpdate} > Update </OutlineButton>
     </div>
   )
 }

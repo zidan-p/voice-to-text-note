@@ -15,8 +15,8 @@ export function AddConfirmAction (props: AddConfirmActionProps){
 
   return (
     <div className={cn("flex justify-between", props.className)}>
-      <OutlineButton variant="danger" onClick={props.onConFirmCancel} > Batal </OutlineButton>
-      <OutlineButton variant="primary" onClick={props.onConFirmAdd} > Add </OutlineButton>
+      <OutlineButton className="px-4" variant="danger" onClick={props.onConFirmCancel} > Batal </OutlineButton>
+      <OutlineButton className="px-4" variant="primary" onClick={props.onConFirmAdd} > Add </OutlineButton>
     </div>
   )
 }

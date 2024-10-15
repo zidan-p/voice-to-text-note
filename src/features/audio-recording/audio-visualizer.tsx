@@ -19,6 +19,8 @@ export function AudioVisualizer(props: AudioVisualizerProps){
 
   useEffect(()=>{
 
+    console.log("changing effect")
+
     if(!props.stream) return;
     if(!canvasRef) return;
 
@@ -62,7 +64,6 @@ export function AudioVisualizer(props: AudioVisualizerProps){
       let x = 0;
   
       for (let i = 0; i < bufferLength; i++) {
-        console.log(dataArray[i] / 128.0)
         let v = dataArray[i] / 128.0;
         let y = (v * HEIGHT) / 2;
   

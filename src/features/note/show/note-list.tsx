@@ -23,7 +23,7 @@ export function NoteList(props: NoteListProps){
             12 oktober 2024
           </div>
           <div className="text-green-800">
-            #jkjksda-asdjkl-qweikasd-qwd
+            #1911bc10-44ae-4f90-9611-19e1eb55806f
           </div>
         </div>
         <div className="group-hover:flex hidden gap-1">

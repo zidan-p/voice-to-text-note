@@ -20,7 +20,7 @@ export function AddNoteButton(props: AddNoteButtonProps){
     className="p-2 flex items-center gap-1  bg-primary rounded text-white active:text-primary-light active:bg-primary/40"
   >
     <PlusIcon className="w-6" />
-    Tambah
+    Create
   </button>
   )
 }

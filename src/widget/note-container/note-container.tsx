@@ -1,9 +1,8 @@
 import { NoteContainerState } from "./note-container-state";
-import ChevronLeft from "../../assets/chevron-left.svg?react"
-import { ReactNode, useRef, useState } from "react";
+import {  useState } from "react";
 import { cn } from "../../lib/cn";
 import { RemoveConfirm, RemoveNoteButton } from "../../features/note/remove";
-import { UpdateConfirmAction, UpdateNote, UpdateNoteButton } from "../../features/note/update";
+import { UpdateNote, UpdateNoteButton } from "../../features/note/update";
 import { NoteList } from "../../features/note/show";
 
 interface NoteContainerProps {

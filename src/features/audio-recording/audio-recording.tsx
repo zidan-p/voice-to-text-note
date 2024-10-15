@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import PlayIcon from "./../../assets/play.svg?react";
 import StopIcon from "./../../assets/stop.svg?react"
 import { AudioRecordingState } from "./audio-recording-state";
-import { AudioRecordingPlayer } from "./audio-recording-player";
+// import { AudioRecordingPlayer } from "./audio-recording-player";
 import { AudioVisualizer } from "./audio-visualizer";
 
 
@@ -11,7 +11,7 @@ import { AudioVisualizer } from "./audio-visualizer";
 
 export function AudioRecording(){
 
-  const [recordedUrl, setRecordedUrl] = useState('');
+  const [_recordedUrl, setRecordedUrl] = useState('');
   const mediaStream = useRef<MediaStream | null>(null);
   const mediaRecorder = useRef<MediaRecorder | null>(null);
   const chunks = useRef<Blob[]>([]);

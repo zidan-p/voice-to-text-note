@@ -16,7 +16,7 @@ function App() {
           <AudioRecorder />
         </section>
         <section>
-          <div className="flex flex-row-reverse">
+          <div className="mb-3">
             <AddNoteInline />
           </div>
           <NoteContainer />

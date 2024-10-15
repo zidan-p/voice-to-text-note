@@ -10,7 +10,13 @@ interface AudioVisualizerProps {
 
 
 
-
+/**
+ * 
+ * @param props 
+ * @returns 
+ * @see - https://github.com/mdn/dom-examples/tree/main/media/web-dictaphone
+ * @see - https://stackoverflow.com/questions/73832209/adapting-an-animated-canvas-element-into-a-react-component
+ */
 export function AudioVisualizer(props: AudioVisualizerProps){
 
   const [canvasRef, setCanvasRef] = useState<HTMLCanvasElement | null>(null);
@@ -21,11 +27,15 @@ export function AudioVisualizer(props: AudioVisualizerProps){
 
     console.log("changing effect")
 
-    if(!props.stream) return;
+    if(!props.stream) {
+      drawStraightLine();
+      return;
+    }
     if(!canvasRef) return;
-
     if (!canvasCtxRef.current) canvasCtxRef.current = canvasRef!.getContext("2d")!;
     if (!audioCtxRef.current) audioCtxRef.current = new AudioContext();
+
+
 
     
     
@@ -43,6 +53,30 @@ export function AudioVisualizer(props: AudioVisualizerProps){
     const dataArray = new Uint8Array(bufferLength);
   
     source.connect(analyser);
+
+    function drawStraightLine(){
+      if(!canvasRef) return;
+      const canvasCtx = canvasRef!.getContext("2d");
+
+      if(!canvasCtx) return;
+
+      console.log("menggambar garis lurus")
+
+      const WIDTH = canvasRef?.width!;
+      const HEIGHT = canvasRef?.height!;
+
+      canvasCtx.fillStyle = "#fff";
+      canvasCtx.fillRect(0, 0, WIDTH, HEIGHT);
+  
+      canvasCtx.lineWidth = 2;
+      canvasCtx.strokeStyle = "rgb(0, 0, 0)";
+
+      canvasCtx.beginPath();
+      canvasCtx.moveTo(0, HEIGHT / 2);
+      canvasCtx.lineTo(WIDTH, HEIGHT / 2);
+      canvasCtx.stroke();
+
+    }
   
     function draw() {
       const WIDTH = canvasRef?.width!;
@@ -52,7 +86,7 @@ export function AudioVisualizer(props: AudioVisualizerProps){
   
       analyser.getByteTimeDomainData(dataArray);
   
-      canvasCtx.fillStyle = "rgb(200, 200, 200)";
+      canvasCtx.fillStyle = "#fff";
       canvasCtx.fillRect(0, 0, WIDTH, HEIGHT);
   
       canvasCtx.lineWidth = 2;
@@ -89,63 +123,6 @@ export function AudioVisualizer(props: AudioVisualizerProps){
   },[props.stream, canvasRef])
 
   return (
-    <canvas ref={setCanvasRef} className="w-full" />
+    <canvas ref={setCanvasRef} className="w-full h-16" />
   )
-}
-
-
-
-export function AudioVisualizerDummy() {
-  const [canvas, setCanvas] = useState<HTMLCanvasElement>();
-
-  useEffect(() => {
-    // On the first render, canvas won't be set. However, once setCanvas is called by ref, this effect will run again.
-    if (canvas == null) return;
-    const ctx = canvas.getContext("2d");
-    if(!ctx) return;
-    const dashLen = 220;
-    let dashOffset = dashLen;
-    const speed = 5;
-    const txt = "STROKE-ON CANVAS";
-    let x = 30;
-    let i = 0;
-
-    ctx.font = "50px Comic Sans MS, cursive, TSCu_Comic, sans-serif";
-    ctx.lineWidth = 5;
-    ctx.lineJoin = "round";
-    ctx.globalAlpha = 2 / 3;
-    ctx.strokeStyle = ctx.fillStyle = "#1f2f90";
-    
-    // Keep track of wether the component is still mounted
-    let mounted = true;
-
-    const loop = () => {
-      if (!mounted) return;
-      ctx.clearRect(x, 0, 60, 150);
-      ctx.setLineDash([dashLen - dashOffset, dashOffset - speed]); // create a long dash mask
-      dashOffset -= speed; // reduce dash length
-      ctx.strokeText(txt[i], x, 90); // stroke letter
-
-      if (dashOffset > 0) requestAnimationFrame(loop); // animate
-      else {
-        ctx.fillText(txt[i], x, 90); // fill final letter
-        dashOffset = dashLen; // prep next char
-        x += ctx.measureText(txt[i++]).width + ctx.lineWidth * Math.random();
-        ctx.setTransform(1, 0, 0, 1, 0, 3 * Math.random()); // random y-delta
-        ctx.rotate(Math.random() * 0.005); // random rotation
-        if (i < txt.length) requestAnimationFrame(loop);
-      }
-    };
-
-    requestAnimationFrame(loop);
-    
-    // React will call this function when the effects' dependencies change, or the component is unmounted
-    return () => {
-      // Set mounted to false so that the next frame is short-circuited.
-      mounted = false;
-    };
-  }, [canvas]);
-
-  // @ts-ignore
-  return <canvas width="630" ref={setCanvas}></canvas>;
 }

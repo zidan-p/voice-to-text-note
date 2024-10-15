@@ -71,9 +71,8 @@ export function AudioRecording(){
     }
   };
   return (
-    <div>
+    <div className="flex items-center gap-2">
 
-      <AudioVisualizer stream={mediaStream.current!} />
       
       {/* <AudioRecordingPlayer recordedUrl={recordedUrl} /> */}
 
@@ -88,6 +87,8 @@ export function AudioRecording(){
           <StopIcon className="w-5" />
         </button>
       )}
+
+      <AudioVisualizer stream={mediaStream.current!} />
     </div>
   );
 }

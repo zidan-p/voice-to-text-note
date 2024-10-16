@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
-import { AudioRecordingWithRef, AudioRecordingWithRefMethod } from "../../features/audio-recording";
-import { AudioToTextMethod, AudioToTextWithRef } from "../../features/audio-to-text";
+import { AudioRecordingWithRef, AudioRecordingWithRefMethod } from "../../component/audio/audio-recording";
+import { AudioToTextMethod, AudioToTextWithRef } from "../../component/audio/audio-to-text";
 
 
 

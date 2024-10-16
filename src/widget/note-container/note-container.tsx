@@ -24,7 +24,7 @@ export function NoteContainer(props: NoteContainerProps){
   if(containerState === NoteContainerState.DELETE) return (
     <div className={cn(props.className, "hover:bg-slate-50 p-2 rounded group")}>
       <RemoveConfirm 
-        id="nganunganu"
+        id={props.id}
         onRemove={ChangeContainerState(NoteContainerState.SHOW)}
         onCancel={ChangeContainerState(NoteContainerState.SHOW)}
       />
@@ -35,7 +35,8 @@ export function NoteContainer(props: NoteContainerProps){
   if(containerState === NoteContainerState.EDIT) return( 
     <div className={cn(props.className, "hover:bg-slate-50 p-2 rounded group")}>
       <UpdateNote 
-        id="nganunganu"
+        id={props.id}
+        value={props.content}
         onUpdate={ChangeContainerState(NoteContainerState.SHOW)}  
         onCancel={ChangeContainerState(NoteContainerState.SHOW)}  
       />

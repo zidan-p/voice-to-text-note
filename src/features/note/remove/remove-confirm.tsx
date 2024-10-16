@@ -1,4 +1,5 @@
 import { OutlineButton } from "../../../component/form";
+import { appNoteService } from "../../../service";
 import WarningIcon from "./../../../assets/warning.svg?react";
 
 
@@ -14,8 +15,8 @@ interface RemoveConfirmProps {
 export function RemoveConfirm(props: RemoveConfirmProps){
 
 
-  function handleOnDelete(){
-
+  async function handleOnDelete(){
+    await appNoteService.deleteNote(props.id);
     props.onRemove()
   }
 

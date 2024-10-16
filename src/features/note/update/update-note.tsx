@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { UpdateConfirmAction } from "./update-confirm-action";
 import { UpdateNoteTextArea } from "./update-note-text-area";
+import { appNoteService } from "../../../service";
 
 
 
 interface UpdateNoteProps {
-  // value: string;
+  value: string;
   id: string;
   onUpdate?: (newVal: string) => any;
   onCancel?: () => void;
@@ -15,11 +16,11 @@ interface UpdateNoteProps {
 
 export function UpdateNote(props: UpdateNoteProps){
 
-  const [changeContainer, setChangeContainer] = useState("");
+  const [changeContainer, setChangeContainer] = useState(props.value);
 
   // consume service here...
-  function handleOnUpdate(){
-    
+  async function handleOnUpdate(){
+    await appNoteService.updateNote(props.id, {content: changeContainer});
     if(props.onUpdate) props.onUpdate(changeContainer);
   }
 

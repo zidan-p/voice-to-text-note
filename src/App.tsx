@@ -20,11 +20,6 @@ function App() {
             <AddNoteInline />
           </div>
           <NoteContainer />
-          <NoteContainer />
-          <NoteContainer />
-          <NoteContainer />
-          <NoteContainer />
-          <NoteContainer />
         </section>
       </WhiteCard>
     </BodyContainer>

@@ -6,10 +6,12 @@ import { AudioRecordingState } from "./audio-recording-state";
 import { AudioVisualizer } from "./audio-visualizer";
 
 
+interface AudioRecordingProps {
+  onResult?: (audioUrl : string) => void;
+}
 
 
-
-export function AudioRecording(){
+export function AudioRecording(porps: AudioRecordingProps){
 
   const [_recordedUrl, setRecordedUrl] = useState('');
   const mediaStream = useRef<MediaStream | null>(null);
@@ -46,6 +48,8 @@ export function AudioRecording(){
         const url = URL.createObjectURL(recordedBlob);
         setRecordedUrl(url);
         chunks.current = [];
+
+        if(porps.onResult) porps.onResult(url);
       };
       mediaRecorder.current.start();
 

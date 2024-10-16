@@ -1,24 +1,55 @@
-import { useEffect, useRef, useState } from "react"
-import PlayIcon from "./../../assets/play.svg?react";
-import StopIcon from "./../../assets/stop.svg?react"
-
+import { ForwardedRef, forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react"
+import XIcon from "./../../assets/x.svg?react";
+import CheckIcon from "./../../assets/check.svg?react";
 
 enum  AudioToTextState {
   RECOGNIZING = "recognozning",
   IDLE = "idle"
 }
 
+enum AudioInitialState {
+  INITIAL = "initial",
+  RESULT = "result"
+}
 
-export function AudioToText(){
+
+interface AudioToTextProps {
+  onAcceptText?: (text: string) => void;
+  onDeclineText?: (declinedText: string) => void;
+}
+
+interface AudioToTextMethod {
+  startRecognition : () => void;
+  stopRecognition : () => void;
+}
+
+/**
+ * ## WARNING ##
+ * this speech to text only can be used in chrome
+ * @see [browser compability](https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition#browser_compatibility)
+ */
+export const  AudioToTextWithRef = forwardRef((props: AudioToTextProps, ref: ForwardedRef<AudioToTextMethod>) => {
 
   const speechRecognition = useRef<SpeechRecognition | null>(null);
   const [speechResult, setSpeechResult] = useState("");
 
-  const [regocnitionState, setRecognotionState] = useState(AudioToTextState.IDLE)
+  const [_regocnitionState, setRecognotionState] = useState(AudioToTextState.IDLE)
+  const [actionState, setActionState] = useState(AudioInitialState.INITIAL);
 
   useEffect(()=>{
     initSpeechRecognition();
   },[]);
+
+  useImperativeHandle(ref, () => ({
+    startRecognition(){
+      if(!speechRecognition.current) return;
+      speechRecognition.current.start();
+    },
+    stopRecognition(){
+      if(!speechRecognition.current) return;
+      speechRecognition.current.stop();
+    }
+  }))
 
 
   async function initSpeechRecognition(){
@@ -29,6 +60,8 @@ export function AudioToText(){
 
     speechRecognition.current.onstart = () => {
       setRecognotionState(AudioToTextState.RECOGNIZING);
+      setActionState(AudioInitialState.RESULT)
+      setSpeechResult("....")
     };
     
     speechRecognition.current.onresult = (event) => {
@@ -44,32 +77,48 @@ export function AudioToText(){
   }
 
 
-  function startRecognition(){
-    if(!speechRecognition.current) return;
-    speechRecognition.current.start();
+  function acceptText(){
+    if(props.onAcceptText) props.onAcceptText(speechResult);
+    setActionState(AudioInitialState.INITIAL)
+    setSpeechResult("")
   }
 
-  function stopRecognition(){
-    if(!speechRecognition.current) return;
-    speechRecognition.current.stop();
+
+  function declineText(){
+    if(props.onDeclineText) props.onDeclineText(speechResult);
+    setActionState(AudioInitialState.INITIAL)
+    setSpeechResult("")
   }
 
   return (
-    <div className="">
-      <p>{speechResult}</p>
+    <div className="border p-1 rounded">
+      {actionState === AudioInitialState.RESULT && (
+        <p className="mb-2">{speechResult}</p>
+      )}
 
-      <div className="">{regocnitionState}</div>
+      {actionState === AudioInitialState.INITIAL && (
+        <p className="text-primary-light">Speech to text here ...</p>
+      )}
 
-      <div className="flex">
-        <button onClick={startRecognition} className="bg-green-200 p-2 rounded-full text-green-700 active:bg-green-300">
-          <PlayIcon className="w-5" />
-        </button>
+      {/* <div className="">{regocnitionState}</div> */}
 
-        <button onClick={ stopRecognition} className="bg-red-200 p-2 rounded-full text-red-700 active:bg-red-300">
-          <StopIcon className="w-5" />
-        </button>
+      <div className="flex flex-row-reverse items-center">
+
+        {actionState == AudioInitialState.RESULT && (
+          <div className="flex gap-2 px-2">
+            <button onClick={declineText} className="text-danger hover:text-danger/40">
+              <XIcon className="w-5" />
+            </button>
+            <button onClick={acceptText} className="text-primary-dark hover:text-primary-dark/40">
+              <CheckIcon className="w-5" />
+            </button>
+          </div>
+        )}
       </div>
+
+
+
 
     </div>
   )
-}
+})

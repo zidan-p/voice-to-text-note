@@ -10,6 +10,7 @@ export interface CreateNotePayload {
   content: string
 }
 
+type NoteListener = (data: Note[]) => any;
 
 export interface NoteDataAccess {
 
@@ -20,4 +21,6 @@ export interface NoteDataAccess {
   updateNote(id: string, payload: UpdateNotePayload): Promise<Note>;
 
   createNote(payload: CreateNotePayload): Promise<Note>;
+
+  listenDbUpdate(listener: NoteListener): void;
 }

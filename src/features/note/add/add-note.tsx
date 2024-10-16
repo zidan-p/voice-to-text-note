@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { AddConfirmAction } from "./add-confirm-action";
 import { AddNoteTextArea } from "./add-note-text-area";
+import { appNoteService } from "../../../service";
 
 
 
@@ -15,9 +16,13 @@ export function AddNote(props: AddNoteProps){
   const [changeContainer, setChangeContainer] = useState("");
 
   // consume service here...
-  function handleOnUpdate(){
+  async function handleOnAdd(){
     
     if(props.onAdd) props.onAdd(changeContainer);
+
+    await appNoteService.createNote({content: changeContainer});
+
+    console.log("successfully create database")
   }
 
   function handleOnChage(val: string){
@@ -34,7 +39,7 @@ export function AddNote(props: AddNoteProps){
     <div className="">
       <AddConfirmAction 
         onConFirmCancel={handleOnCancel}
-        onConFirmAdd={handleOnUpdate}
+        onConFirmAdd={handleOnAdd}
         className="mb-2"  
       />
       <AddNoteTextArea  

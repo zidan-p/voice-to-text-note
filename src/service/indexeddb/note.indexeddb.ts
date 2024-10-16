@@ -10,6 +10,7 @@ export class NoteIndexedDB implements NoteDataAccess {
     private readonly db: DBDocument,
   ){}
 
+
   getAllNote(): Promise<Note[]> {
     return this.db.NoteDb.toArray();
   }
@@ -45,5 +46,17 @@ export class NoteIndexedDB implements NoteDataAccess {
 
     return data;
   }
+
+  listenDbUpdate(listener: (data: Note[]) => any): void {
+    this.db.on("changes", async ( changes) => {
+      // see https://dexie.org/docs/Observable/Dexie.Observable
+
+      // for noe let just retrieve all data
+      const notes = await this.db.NoteDb.toArray();
+
+      listener(notes);
+    })
+  }
+
   
 }

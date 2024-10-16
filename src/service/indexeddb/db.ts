@@ -1,5 +1,7 @@
 import Dexie, { EntityTable } from "dexie";
+import 'dexie-observable';
 
+export const DATABASE_NAME = "JustDB"
 export const DATABASE_VERSION = 1;
 export const DatabaseTable = {
   Note: "NoteDb"
@@ -23,7 +25,7 @@ export type DBDocument = Dexie & {
   >;
 };
 
-export const mainDb  = new Dexie('FriendsDatabase') as DBDocument;
+export const mainDb  = new Dexie(DATABASE_NAME) as DBDocument;
 
 mainDb.version(1).stores({
   [DatabaseTable.Note] : "id, date"

@@ -4,6 +4,7 @@ import { AddNoteInline } from "./features/note/add/add-note-inline"
 import { AudioTextRecognitionInput } from "./widget/audio-recorder/audio-text-recognition-input"
 import { NoteContainer } from "./widget/note-container/note-container"
 import TropicalBeach from "./assets/tropical-beach.jpg";
+import { NoteContainerListener } from "./widget/note-container/note-container-list"
 
 
 function App() {
@@ -19,7 +20,8 @@ function App() {
           <div className="mb-3">
             <AddNoteInline />
           </div>
-          <NoteContainer />
+          {/* <NoteContainer /> */}
+          <NoteContainerListener />
         </section>
       </WhiteCard>
     </BodyContainer>

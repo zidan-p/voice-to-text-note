@@ -6,6 +6,9 @@ import ChevronLeft from "../../../assets/chevron-left.svg?react";
 interface NoteListProps {
   className?: string;
   buttonList?: ReactNode;
+  id: string;
+  date: Date;
+  content: string
 }
 
 
@@ -20,10 +23,10 @@ export function NoteList(props: NoteListProps){
       <div className="flex justify-between items-center">
         <div className="">
           <div className="text-slate-600 text-sm">
-            12 oktober 2024
+            {props.date.toLocaleDateString()}
           </div>
           <div className="text-green-800">
-            #1911bc10-44ae-4f90-9611-19e1eb55806f
+            # {props.id}
           </div>
         </div>
         <div className="group-hover:flex hidden gap-1">
@@ -42,7 +45,7 @@ export function NoteList(props: NoteListProps){
         }
         className={cn("overflow-hidden transition-all")}
       >
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate voluptatum, delectus sit sed ea explicabo deserunt, nulla mollitia alias molestiae illum? Molestiae in possimus debitis quidem assumenda, incidunt magni itaque!
+        {props.content}
       </p>
     </div>
   )

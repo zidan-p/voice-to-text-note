@@ -6,6 +6,9 @@ import { UpdateNote, UpdateNoteButton } from "../../features/note/update";
 import { NoteList } from "../../features/note/show";
 
 interface NoteContainerProps {
+  id: string;
+  date: Date;
+  content: string;
   className?: string;
 }
 
@@ -42,6 +45,9 @@ export function NoteContainer(props: NoteContainerProps){
   return (
     <div className={cn(props.className, "hover:bg-slate-50 p-2 rounded group")}>
       <NoteList 
+        id={props.id}
+        content={props.content}
+        date={props.date}
         buttonList={
           <>
           <RemoveNoteButton onClick={ChangeContainerState(NoteContainerState.DELETE)} />

@@ -12,7 +12,7 @@ export class NoteIndexedDB implements NoteDataAccess {
 
 
   getAllNote(): Promise<Note[]> {
-    return this.db.NoteDb.toArray();
+    return this.db.NoteDb.toCollection().sortBy('date');
   }
 
 

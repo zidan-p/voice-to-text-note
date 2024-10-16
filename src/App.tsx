@@ -1,10 +1,9 @@
 import { BodyContainer } from "./component/container/body-container"
 import { WhiteCard } from "./component/container/white-card"
 import { AddNoteInline } from "./features/note/add/add-note-inline"
-import { AudioTextRecognitionInput } from "./widget/audio-recorder/audio-text-recognition-input"
-import { NoteContainer } from "./widget/note-container/note-container"
 import TropicalBeach from "./assets/tropical-beach.jpg";
 import { NoteContainerListener } from "./widget/note-container/note-container-list"
+import { AddNoteByAudioInput } from "./features/note/add-by-audio"
 
 
 function App() {
@@ -14,7 +13,7 @@ function App() {
       <WhiteCard>
         <img src={TropicalBeach} alt="" className="h-20 w-full object-cover object-bottom" />
         <section className="mb-3">
-          <AudioTextRecognitionInput />
+          <AddNoteByAudioInput />
         </section>
         <section>
           <div className="mb-3">

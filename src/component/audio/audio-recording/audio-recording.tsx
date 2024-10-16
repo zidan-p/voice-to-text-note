@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import PlayIcon from "./../../assets/play.svg?react";
-import StopIcon from "./../../assets/stop.svg?react"
+import PlayIcon from "./../../../assets/play.svg?react"
+import StopIcon from "./../../../assets/stop.svg?react"
 import { AudioRecordingState } from "./audio-recording-state";
 import { AudioVisualizer } from "./audio-visualizer";
 

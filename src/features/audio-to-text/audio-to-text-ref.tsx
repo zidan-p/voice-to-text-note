@@ -2,13 +2,14 @@ import { ForwardedRef, forwardRef, useEffect, useImperativeHandle, useRef, useSt
 import XIcon from "./../../assets/x.svg?react";
 import CheckIcon from "./../../assets/check.svg?react";
 
-enum  AudioToTextState {
-  RECOGNIZING = "recognozning",
-  IDLE = "idle"
-}
+// enum  AudioToTextState {
+//   RECOGNIZING = "recognozning",
+//   IDLE = "idle"
+// }
 
 enum AudioInitialState {
   INITIAL = "initial",
+  RECOGNIZING = "recognozning",
   RESULT = "result"
 }
 
@@ -20,7 +21,7 @@ interface AudioToTextProps {
   onStopRecognition?: () => void;
 }
 
-interface AudioToTextMethod {
+export interface AudioToTextMethod {
   startRecognition : () => void;
   stopRecognition : () => void;
 }
@@ -35,7 +36,7 @@ export const  AudioToTextWithRef = forwardRef((props: AudioToTextProps, ref: For
   const speechRecognition = useRef<SpeechRecognition | null>(null);
   const [speechResult, setSpeechResult] = useState("");
 
-  const [_regocnitionState, setRecognotionState] = useState(AudioToTextState.IDLE)
+  // const [_regocnitionState, setRecognotionState] = useState(AudioToTextState.IDLE)
   const [actionState, setActionState] = useState(AudioInitialState.INITIAL);
 
   useEffect(()=>{
@@ -61,8 +62,8 @@ export const  AudioToTextWithRef = forwardRef((props: AudioToTextProps, ref: For
 
 
     speechRecognition.current.onstart = () => {
-      setRecognotionState(AudioToTextState.RECOGNIZING);
-      setActionState(AudioInitialState.RESULT)
+      // setRecognotionState(AudioToTextState.RECOGNIZING);
+      setActionState(AudioInitialState.RECOGNIZING)
       setSpeechResult("....")
       if(props.onStartRecognition) props.onStartRecognition();
     };
@@ -74,7 +75,8 @@ export const  AudioToTextWithRef = forwardRef((props: AudioToTextProps, ref: For
     };
     
     speechRecognition.current.onend = () => {
-      setRecognotionState(AudioToTextState.IDLE);
+      // setRecognotionState(AudioToTextState.IDLE);
+      setActionState(AudioInitialState.RESULT)
       if(props.onStopRecognition) props.onStopRecognition();
     };
 
@@ -96,7 +98,7 @@ export const  AudioToTextWithRef = forwardRef((props: AudioToTextProps, ref: For
 
   return (
     <div className="border p-1 rounded">
-      {actionState === AudioInitialState.RESULT && (
+      {(actionState === AudioInitialState.RESULT || actionState === AudioInitialState.RECOGNIZING) && (
         <p className="mb-2">{speechResult}</p>
       )}
 

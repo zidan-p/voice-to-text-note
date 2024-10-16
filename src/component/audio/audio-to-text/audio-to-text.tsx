@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react"
-import PlayIcon from "./../../assets/play.svg?react";
-import StopIcon from "./../../assets/stop.svg?react"
-import XIcon from "./../../assets/x.svg?react";
-import CheckIcon from "./../../assets/check.svg?react";
+import PlayIcon from "./../../../assets/play.svg?react";
+import StopIcon from "./../../../assets/stop.svg?react"
+import XIcon from "./../../../assets/x.svg?react"
+import CheckIcon from "./../../../assets/check.svg?react";
 
 enum  AudioToTextState {
   RECOGNIZING = "recognozning",

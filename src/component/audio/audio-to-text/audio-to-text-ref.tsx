@@ -1,6 +1,6 @@
 import { ForwardedRef, forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react"
-import XIcon from "./../../assets/x.svg?react";
-import CheckIcon from "./../../assets/check.svg?react";
+import XIcon from "./../../../assets/x.svg?react"
+import CheckIcon from "./../../../assets/check.svg?react";
 
 // enum  AudioToTextState {
 //   RECOGNIZING = "recognozning",

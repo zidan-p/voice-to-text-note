@@ -8,5 +8,10 @@ import { AudioRecording } from "../../features/audio-recording";
 
 export function AudioRecorder(){
 
-  return <AudioRecording />
+
+  function handler (){}
+
+  return (
+    <AudioRecording />
+  )
 }

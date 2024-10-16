@@ -2,11 +2,12 @@ import { useEffect, useRef, useState } from "react";
 import PlayIcon from "./../../assets/play.svg?react";
 import StopIcon from "./../../assets/stop.svg?react"
 import { AudioRecordingState } from "./audio-recording-state";
-// import { AudioRecordingPlayer } from "./audio-recording-player";
 import { AudioVisualizer } from "./audio-visualizer";
 
 
 interface AudioRecordingProps {
+  onStartRecording?: () => void;
+  onStopRecording?: () => void;
   onResult?: (audioUrl : string) => void;
 }
 
@@ -53,6 +54,8 @@ export function AudioRecording(porps: AudioRecordingProps){
       };
       mediaRecorder.current.start();
 
+      if(porps.onStartRecording) porps.onStartRecording();
+
       // because i place my media stream as ref, it wont rerender when the new one in replace it.
       // because of that, i rely on this state change to update the child component 
       setRecordingState(AudioRecordingState.RECORDING);
@@ -65,14 +68,16 @@ export function AudioRecording(porps: AudioRecordingProps){
 
     setRecordingState(AudioRecordingState.IDLE);
 
-    if (mediaRecorder.current && mediaRecorder.current.state === 'recording') {
+    if(mediaRecorder.current && mediaRecorder.current.state === 'recording') {
       mediaRecorder.current.stop();
     }
-    if (mediaStream.current) {
+    if(mediaStream.current) {
       mediaStream.current.getTracks().forEach((track) => {
         track.stop();
       });
     }
+
+    if(porps.onStopRecording) porps.onStopRecording();
   };
   return (
     <div className="flex items-center gap-2">

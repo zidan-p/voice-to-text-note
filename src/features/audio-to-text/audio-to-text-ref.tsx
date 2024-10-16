@@ -16,6 +16,8 @@ enum AudioInitialState {
 interface AudioToTextProps {
   onAcceptText?: (text: string) => void;
   onDeclineText?: (declinedText: string) => void;
+  onStartRecognition?: () => void;
+  onStopRecognition?: () => void;
 }
 
 interface AudioToTextMethod {
@@ -24,8 +26,8 @@ interface AudioToTextMethod {
 }
 
 /**
- * ## WARNING ##
- * this speech to text only can be used in chrome
+ * ## NOTE ##
+ * this speech to text can only be used in chrome
  * @see [browser compability](https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition#browser_compatibility)
  */
 export const  AudioToTextWithRef = forwardRef((props: AudioToTextProps, ref: ForwardedRef<AudioToTextMethod>) => {
@@ -62,6 +64,7 @@ export const  AudioToTextWithRef = forwardRef((props: AudioToTextProps, ref: For
       setRecognotionState(AudioToTextState.RECOGNIZING);
       setActionState(AudioInitialState.RESULT)
       setSpeechResult("....")
+      if(props.onStartRecognition) props.onStartRecognition();
     };
     
     speechRecognition.current.onresult = (event) => {
@@ -72,6 +75,7 @@ export const  AudioToTextWithRef = forwardRef((props: AudioToTextProps, ref: For
     
     speechRecognition.current.onend = () => {
       setRecognotionState(AudioToTextState.IDLE);
+      if(props.onStopRecognition) props.onStopRecognition();
     };
 
   }
@@ -105,20 +109,16 @@ export const  AudioToTextWithRef = forwardRef((props: AudioToTextProps, ref: For
       <div className="flex flex-row-reverse items-center">
 
         {actionState == AudioInitialState.RESULT && (
-          <div className="flex gap-2 px-2">
-            <button onClick={declineText} className="text-danger hover:text-danger/40">
-              <XIcon className="w-5" />
-            </button>
-            <button onClick={acceptText} className="text-primary-dark hover:text-primary-dark/40">
-              <CheckIcon className="w-5" />
-            </button>
-          </div>
+        <div className="flex gap-2 px-2">
+          <button onClick={declineText} className="text-danger hover:text-danger/40">
+            <XIcon className="w-5" />
+          </button>
+          <button onClick={acceptText} className="text-primary-dark hover:text-primary-dark/40">
+            <CheckIcon className="w-5" />
+          </button>
+        </div>
         )}
       </div>
-
-
-
-
     </div>
   )
 })

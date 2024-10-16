@@ -20,6 +20,13 @@ interface AudioToTextProps {
   onDeclineText?: (declinedText: string) => void;
 }
 
+/**
+ * ## WARNING ##
+ * this speech to text only can be used in chrome
+ * @see [browser compability](https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition#browser_compatibility)
+ * @param props 
+ * @returns 
+ */
 export function AudioToText(props: AudioToTextProps){
 
   const speechRecognition = useRef<SpeechRecognition | null>(null);
